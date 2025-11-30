@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Definición Campeonato F1 2025</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23E10600'/%3E%3Ctext x='50' y='70' font-size='60' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial, sans-serif'%3EF1%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            background-color: #15151e;
+            color: #ffffff;
+        }
+        
+        .mclaren-border { border-left: 5px solid #FF8000; }
+        .mclaren-text { color: #FF8000; }
+        .mclaren-bg { background-color: #FF8000; }
+        
+        .redbull-border { border-left: 5px solid #061D42; }
+        .redbull-border-accent { border-left: 5px solid #EF1A2D; }
+        .redbull-text { color: #3671C6; }
+        
+        .card-gradient {
+            background: linear-gradient(145deg, #1f1f2e, #1a1a25);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .animate-points {
+            transition: all 0.5s ease-out;
+        }
+        
+        .winner-glow {
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); border-color: rgba(255, 215, 0, 0.5); }
+            to { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); border-color: #FFD700; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-black border-b border-red-600 p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-flag-checkered text-red-600 text-2xl"></i>
+                <h1 class="text-2xl font-bold tracking-wider uppercase italic">F1 <span class="text-gray-400 font-light">Finale 2025</span></h1>
+            </div>
+            <div class="text-xs md:text-sm text-gray-400 font-mono text-right">
+                <div>ROUND 24/24</div>
+                <div class="text-red-500 font-bold">DECIDER</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 md:p-8">
+        
+        <div class="text-center mb-8">
+            <h2 class="text-xl md:text-3xl font-semibold mb-2">Simulador de Definición</h2>
+            <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
+                Selecciona la posición final de cada piloto en la última carrera para calcular quién se lleva el título.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+            
+            <div id="card-norris" class="card-gradient rounded-r-xl rounded-bl-xl p-5 mclaren-border relative group transition-all duration-300 hover:translate-y-[-2px]">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="text-4xl font-bold italic block">4</span>
+                        <h3 class="text-xl font-bold uppercase">L. Norris</h3>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">McLaren</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-gray-500 uppercase mb-1">Puntos Actuales</div>
+                        <span class="text-3xl font-mono font-bold text-white">408</span>
+                    </div>
+                </div>
+                
+                <div class="bg-black/30 p-3 rounded-lg border border-white/5">
+                    <label class="block text-xs uppercase text-gray-400 mb-2 font-bold">Posición Final</label>
+                    <select id="pos-norris" class="w-full bg-[#2A2A35] border border-gray-600 text-white rounded p-2 focus:outline-none focus:border-orange-500 transition-colors cursor-pointer" onchange="calculateChampionship()">
+                        <option value="1">1º Place (+25)</option>
+                        <option value="2">2º Place (+18)</option>
+                        <option value="3">3º Place (+15)</option>
+                        <option value="4">4º Place (+12)</option>
+                        <option value="5">5º Place (+10)</option>
+                        <option value="6">6º Place (+8)</option>
+                        <option value="7">7º Place (+6)</option>
+                        <option value="8">8º Place (+4)</option>
+                        <option value="9">9º Place (+2)</option>
+                        <option value="10">10º Place (+1)</option>
+                        <option value="0" selected>> 10º / DNF (0)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="card-verstappen" class="card-gradient rounded-r-xl rounded-bl-xl p-5 border-l-4 border-[#3671C6] relative transition-all duration-300 hover:translate-y-[-2px]">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="text-4xl font-bold italic block">1</span>
+                        <h3 class="text-xl font-bold uppercase">M. Verstappen</h3>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">Red Bull Racing</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-gray-500 uppercase mb-1">Puntos Actuales</div>
+                        <span class="text-3xl font-mono font-bold text-white">396</span>
+                    </div>
+                </div>
+
+                <div class="bg-black/30 p-3 rounded-lg border border-white/5">
+                    <label class="block text-xs uppercase text-gray-400 mb-2 font-bold">Posición Final</label>
+                    <select id="pos-verstappen" class="w-full bg-[#2A2A35] border border-gray-600 text-white rounded p-2 focus:outline-none focus:border-blue-500 transition-colors cursor-pointer" onchange="calculateChampionship()">
+                        <option value="1">1º Place (+25)</option>
+                        <option value="2">2º Place (+18)</option>
+                        <option value="3">3º Place (+15)</option>
+                        <option value="4">4º Place (+12)</option>
+                        <option value="5">5º Place (+10)</option>
+                        <option value="6">6º Place (+8)</option>
+                        <option value="7">7º Place (+6)</option>
+                        <option value="8">8º Place (+4)</option>
+                        <option value="9">9º Place (+2)</option>
+                        <option value="10">10º Place (+1)</option>
+                        <option value="0" selected>> 10º / DNF (0)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="card-piastri" class="card-gradient rounded-r-xl rounded-bl-xl p-5 mclaren-border relative transition-all duration-300 hover:translate-y-[-2px]">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="text-4xl font-bold italic block">81</span>
+                        <h3 class="text-xl font-bold uppercase">O. Piastri</h3>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">McLaren</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-gray-500 uppercase mb-1">Puntos Actuales</div>
+                        <span class="text-3xl font-mono font-bold text-white">392</span>
+                    </div>
+                </div>
+
+                <div class="bg-black/30 p-3 rounded-lg border border-white/5">
+                    <label class="block text-xs uppercase text-gray-400 mb-2 font-bold">Posición Final</label>
+                    <select id="pos-piastri" class="w-full bg-[#2A2A35] border border-gray-600 text-white rounded p-2 focus:outline-none focus:border-orange-500 transition-colors cursor-pointer" onchange="calculateChampionship()">
+                        <option value="1">1º Place (+25)</option>
+                        <option value="2">2º Place (+18)</option>
+                        <option value="3">3º Place (+15)</option>
+                        <option value="4">4º Place (+12)</option>
+                        <option value="5">5º Place (+10)</option>
+                        <option value="6">6º Place (+8)</option>
+                        <option value="7">7º Place (+6)</option>
+                        <option value="8">8º Place (+4)</option>
+                        <option value="9">9º Place (+2)</option>
+                        <option value="10">10º Place (+1)</option>
+                        <option value="0" selected>> 10º / DNF (0)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="conflict-warning" class="hidden bg-yellow-900/50 border border-yellow-600 text-yellow-200 px-4 py-3 rounded mb-6 text-center text-sm">
+            <i class="fa-solid fa-triangle-exclamation mr-2"></i> Advertencia: Has seleccionado la misma posición para dos o más pilotos.
+        </div>
+        
+        <div class="bg-black rounded-xl border border-white/10 p-6 md:p-8 text-center max-w-4xl mx-auto shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-50"></div>
+            
+            <h2 class="text-gray-400 uppercase tracking-widest text-sm mb-6">Resultado del Campeonato</h2>
+            
+            <div id="result-container" class="transition-all duration-500">
+                <div class="inline-block relative">
+                    <i class="fa-solid fa-trophy text-6xl text-yellow-500 mb-4 drop-shadow-[0_0_15px_rgba(255,215,0,0.5)]"></i>
+                </div>
+                
+                <h3 class="text-4xl md:text-6xl font-black italic uppercase mb-2 animate-points" id="winner-name">L. NORRIS</h3>
+                <p class="text-xl md:text-2xl text-gray-300 font-light mb-8" id="winner-team">MCLAREN</p>
+                
+                <div class="grid grid-cols-3 gap-4 border-t border-gray-800 pt-6">
+                    <div class="text-center">
+                        <div class="text-[10px] uppercase text-gray-500">Norris</div>
+                        <div class="text-xl font-mono font-bold" id="final-norris">408</div>
+                    </div>
+                    <div class="text-center border-l border-gray-800">
+                        <div class="text-[10px] uppercase text-gray-500">Verstappen</div>
+                        <div class="text-xl font-mono font-bold" id="final-verstappen">396</div>
+                    </div>
+                    <div class="text-center border-l border-gray-800">
+                        <div class="text-[10px] uppercase text-gray-500">Piastri</div>
+                        <div class="text-xl font-mono font-bold" id="final-piastri">392</div>
+                    </div>
+                </div>
+                
+                <div id="tie-message" class="hidden mt-4 text-xs text-yellow-500 font-mono">
+                    *Empate en puntos. Se definiría por número de victorias (Countback).
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-black py-6 border-t border-gray-900 mt-8">
+        <div class="container mx-auto text-center">
+            <p class="text-[10px] text-gray-600 mt-2">No afiliado con Fórmula 1 o FIA. Datos basados en tabla de usuario.</p>
+        </div>
+    </footer>
+
+    <script>
+        const POINTS_SYSTEM = {
+            1: 25, 2: 18, 3: 15, 4: 12, 5: 10, 
+            6: 8, 7: 6, 8: 4, 9: 2, 10: 1, 0: 0
+        };
+
+        const INITIAL_POINTS = {
+            norris: 408,
+            verstappen: 396,
+            piastri: 392
+        };
+
+        const DRIVERS = {
+            norris: { name: "L. Norris", team: "McLaren", color: "#FF8000" },
+            verstappen: { name: "M. Verstappen", team: "Red Bull Racing", color: "#3671C6" },
+            piastri: { name: "O. Piastri", team: "McLaren", color: "#FF8000" }
+        };
+
+        function getPoints(position) {
+            return POINTS_SYSTEM[position] || 0;
+        }
+
+        function calculateChampionship() {
+            const posNorris = parseInt(document.getElementById('pos-norris').value);
+            const posVerstappen = parseInt(document.getElementById('pos-verstappen').value);
+            const posPiastri = parseInt(document.getElementById('pos-piastri').value);
+            
+            const positions = [posNorris, posVerstappen, posPiastri].filter(p => p > 0);
+            const hasDuplicates = new Set(positions).size !== positions.length;
+            const warningEl = document.getElementById('conflict-warning');
+            
+            if (hasDuplicates) {
+                warningEl.classList.remove('hidden');
+            } else {
+                warningEl.classList.add('hidden');
+            }
+
+            let finalNorris = INITIAL_POINTS.norris + getPoints(posNorris);
+            let finalVerstappen = INITIAL_POINTS.verstappen + getPoints(posVerstappen);
+            let finalPiastri = INITIAL_POINTS.piastri + getPoints(posPiastri);
+
+            updatePointsDisplay('final-norris', finalNorris);
+            updatePointsDisplay('final-verstappen', finalVerstappen);
+            updatePointsDisplay('final-piastri', finalPiastri);
+
+            const results = [
+                { id: 'norris', points: finalNorris },
+                { id: 'verstappen', points: finalVerstappen },
+                { id: 'piastri', points: finalPiastri }
+            ];
+
+            results.sort((a, b) => b.points - a.points);
+
+            const winner = results[0];
+            const runnerUp = results[1];
+            
+            const isTie = winner.points === runnerUp.points;
+            
+            displayWinner(winner.id, isTie);
+        }
+
+        function updatePointsDisplay(elementId, value) {
+            const el = document.getElementById(elementId);
+            el.style.opacity = '0.5';
+            setTimeout(() => {
+                el.innerText = value;
+                el.style.opacity = '1';
+            }, 150);
+        }
+
+        function displayWinner(driverId, isTie) {
+            const winnerNameEl = document.getElementById('winner-name');
+            const winnerTeamEl = document.getElementById('winner-team');
+            const tieMsgEl = document.getElementById('tie-message');
+            const cards = ['card-norris', 'card-verstappen', 'card-piastri'];
+
+            winnerNameEl.innerText = DRIVERS[driverId].name;
+            winnerNameEl.style.color = DRIVERS[driverId].color;
+            winnerTeamEl.innerText = DRIVERS[driverId].team;
+
+            if (isTie) {
+                tieMsgEl.classList.remove('hidden');
+                winnerNameEl.innerText += "*";
+            } else {
+                tieMsgEl.classList.add('hidden');
+            }
+
+            cards.forEach(cardId => {
+                const card = document.getElementById(cardId);
+                if (cardId === `card-${driverId}`) {
+                    card.style.borderColor = "#FFD700";
+                    card.style.transform = "scale(1.02)";
+                    card.classList.add('shadow-2xl');
+                } else {
+                    if (cardId.includes('mclaren')) card.style.borderColor = ""; 
+                    else card.style.borderColor = ""; 
+                    
+                    card.style.transform = "scale(1)";
+                    card.classList.remove('shadow-2xl');
+                }
+            });
+        }
+
+        window.onload = calculateChampionship;
+
+    </script>
+</body>
+</html>
